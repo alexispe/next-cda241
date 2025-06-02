@@ -8,7 +8,9 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@v4
         with:
-          path: node_modules
+          path: |
+            node_modules
+             /home/runner/.cache/Cypress
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - run: npm install
       - run: npm run build
@@ -21,7 +23,9 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache/restore@v4
         with:
-          path: node_modules
+          path: |
+            node_modules
+             /home/runner/.cache/Cypress
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - run: npm run e2e:headless
       - uses: actions/upload-artifact@v4

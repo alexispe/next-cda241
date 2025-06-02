@@ -4,10 +4,11 @@ jobs:
   build-push:
     runs-on: ubuntu-latest
     steps:
-      - run: ls -lah
       - uses: actions/checkout@v4
-      - run: ls -lah
-      - run: |
-          npm install
-          npm run build
+      - run: npm install
+      - run: npm run build
       - run: npm run e2e:headless
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: cypress/videos

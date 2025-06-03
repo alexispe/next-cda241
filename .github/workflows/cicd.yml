@@ -49,8 +49,9 @@ jobs:
           retention-days: 5
 
   deploy:
-    # needs: test
+    needs: test
     runs-on: ubuntu-latest
+    if: github.ref_name == 'main'
     steps:
       - name: Deploy
         uses: appleboy/ssh-action@v1
@@ -60,7 +61,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd next-cda241
-            git pull
+            git pull origin main
             /home/ubuntu/.nvm/versions/node/v24.1.0/bin/npm install
             /home/ubuntu/.nvm/versions/node/v24.1.0/bin/npm run build
             /home/ubuntu/.nvm/versions/node/v24.1.0/bin/pm2 restart all

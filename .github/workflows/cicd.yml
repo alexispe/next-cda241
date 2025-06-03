@@ -61,6 +61,6 @@ jobs:
           script: |
             cd next-cda241
             git pull
-            npm install
-            npm run build
-            pm2 restart all
+            /home/ubuntu/.nvm/versions/node/v24.1.0/bin/npm install
+            /home/ubuntu/.nvm/versions/node/v24.1.0/bin/npm run build
+            /home/ubuntu/.nvm/versions/node/v24.1.0/bin/pm2 restart all

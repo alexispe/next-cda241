@@ -1,0 +1,29 @@
+---
+- name: Update web servers
+  hosts: webservers
+  remote_user: ubuntu
+  become: true
+  become_method: sudo
+
+  tasks:
+    - name: Install gnupg
+      apt:
+        update_cache: yes
+        name: gnupg
+        state: present
+
+    - name: Add nodejs apt key
+      apt_key:
+        url: https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key
+        state: present
+
+    - name: Add nodejs 18.x ppa for apt repo
+      apt_repository:
+        repo: deb https://deb.nodesource.com/node_18.x bionic main
+        update_cache: yes
+
+    - name: Install nodejs
+      apt:
+        update_cache: yes
+        name: nodejs
+        state: present

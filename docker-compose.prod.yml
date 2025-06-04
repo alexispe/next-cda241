@@ -1,0 +1,5 @@
+services:
+  next-app:
+    image: ghcr.io/alexispe/next-cda241/next-app:latest
+    ports:
+      - "80:3000"

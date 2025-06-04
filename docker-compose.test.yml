@@ -1,7 +1,7 @@
 services:
   next-app:
-    image: ghcr.io/alexispe/next-cda241/next-app:main
+    image: ghcr.io/alexispe/next-cda241/next-app:develop
     environment:
       - NODE_ENV=production
     ports:
-      - "80:3000"
+      - "8080:3000"

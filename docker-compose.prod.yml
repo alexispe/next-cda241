@@ -3,5 +3,16 @@ services:
     image: ghcr.io/alexispe/next-cda241/next-app:main
     environment:
       - NODE_ENV=production
-    ports:
-      - "80:3000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.next-prod.rule=Host(`ec2-51-44-233-51.eu-west-3.compute.amazonaws.com`)"
+      - "traefik.http.routers.next-prod.entrypoints=web"
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
+    name: web
+
+

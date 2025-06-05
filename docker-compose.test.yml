@@ -3,5 +3,17 @@ services:
     image: ghcr.io/alexispe/next-cda241/next-app:develop
     environment:
       - NODE_ENV=production
-    ports:
-      - "8080:3000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.next-test.rule=Host(`51.44.233.51`)"
+      - "traefik.http.routers.next-test.entrypoints=web"
+      - "traefik.http.middlewares.test-auth.basicauth.users=test:$$apr1$$H6uskkkW$$IgXLP6ewTrSuBkTrqE8wj/"
+      - "traefik.http.routers.next-test.middlewares=test-auth@docker"
+
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
+    name: web

@@ -28,6 +28,7 @@ jobs:
           tags: ghcr.io/${{ github.repository }}/next-app:${{ github.ref_name }}
 
   deploy-prod:
+    needs: build-push
     uses: alexispe/next-cda241/.github/workflows/deploy.yml@main
     with:
       env: prod
@@ -36,6 +37,7 @@ jobs:
 
 
   deploy-test:
+    needs: build-push
     uses: alexispe/next-cda241/.github/workflows/deploy.yml@main
     with:
       env: test

@@ -2,6 +2,7 @@ services:
   next-app:
     build:
       context: .
+      target: next
     environment:
       - NODE_ENV=development
     ports:

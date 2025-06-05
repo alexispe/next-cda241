@@ -1,0 +1,32 @@
+on:
+  workflow_call:
+    inputs:
+      env:
+        required: true
+        type: string
+      branch:
+        required: true
+        type: string
+      url:
+        required: true
+        type: string
+
+    jobs:
+      deploy-prod:
+        needs: build-push
+        environment:
+          name: ${{ inputs.env }}
+          url: ${{ inputs.url }}
+        runs-on: ubuntu-latest
+        if: github.ref_name == inputs.branch
+        steps:
+          - name: Deploy
+            uses: appleboy/ssh-action@v1
+            with:
+              host: ${{ secrets.SSH_HOST }}
+              username: ${{ secrets.SSH_USER }}
+              key: ${{ secrets.SSH_KEY }}
+              script: |
+                cd ${{ inputs.env }}
+                sudo docker compose -f docker-compose.${{ inputs.env }}.yml pull
+                sudo docker compose -f docker-compose.${{ inputs.env }}.yml up -d

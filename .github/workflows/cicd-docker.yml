@@ -28,42 +28,18 @@ jobs:
           tags: ghcr.io/${{ github.repository }}/next-app:${{ github.ref_name }}
 
   deploy-prod:
-    needs: build-push
-    environment:
-      name: prod
-      url: http://ec2-51-44-233-51.eu-west-3.compute.amazonaws.com/
-    runs-on: ubuntu-latest
-    if: github.ref_name == 'main'
-    steps:
-      - name: Deploy
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd prod
-            sudo docker compose -f docker-compose.prod.yml pull
-            sudo docker compose -f docker-compose.prod.yml up -d
+    uses: .github/workflows/reusable/deploy.yml
+    with:
+      env: prod
+      branch: main
+      url: http://ec2-51-44-233-51.eu-west-3.compute.amazonaws.com
+
 
   deploy-test:
-    needs: build-push
-    environment:
-      name: test
-      url: http://ec2-51-44-233-51.eu-west-3.compute.amazonaws.com:8080/
-    runs-on: ubuntu-latest
-    if: github.ref_name == 'develop'
-    steps:
-      - name: Deploy
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd test
-            sudo docker compose -f docker-compose.test.yml pull
-            sudo docker compose -f docker-compose.test.yml up -d
-
+    uses: .github/workflows/reusable/deploy.yml
+    with:
+      env: test
+      branch: develop
+      url: http://ec2-51-44-233-51.eu-west-3.compute.amazonaws.com:8080
 
 

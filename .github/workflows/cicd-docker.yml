@@ -29,6 +29,8 @@ jobs:
 
   deploy-prod:
     needs: build-push
+    environment:
+      name: prod
     runs-on: ubuntu-latest
     if: github.ref_name == 'main'
     steps:
@@ -45,6 +47,8 @@ jobs:
 
   deploy-test:
     needs: build-push
+    environment:
+      name: test
     runs-on: ubuntu-latest
     if: github.ref_name == 'develop'
     steps:

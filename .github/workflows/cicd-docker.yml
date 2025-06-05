@@ -31,6 +31,7 @@ jobs:
     needs: build-push
     environment:
       name: prod
+      url: http://ec2-51-44-233-51.eu-west-3.compute.amazonaws.com/
     runs-on: ubuntu-latest
     if: github.ref_name == 'main'
     steps:
@@ -49,6 +50,7 @@ jobs:
     needs: build-push
     environment:
       name: test
+      url: http://ec2-51-44-233-51.eu-west-3.compute.amazonaws.com:8080/
     runs-on: ubuntu-latest
     if: github.ref_name == 'develop'
     steps:

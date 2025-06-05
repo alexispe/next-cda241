@@ -19,7 +19,7 @@ on:
         required: true
 
 jobs:
-  deploy-prod:
+  deploy:
     environment:
       name: ${{ inputs.env }}
       url: ${{ inputs.url }}

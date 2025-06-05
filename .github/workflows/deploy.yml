@@ -10,6 +10,13 @@ on:
       url:
         required: true
         type: string
+    secrets:
+      SSH_HOST:
+        required: true
+      SSH_USER:
+        required: true
+      SSH_KEY:
+        required: true
 
 jobs:
   deploy-prod:

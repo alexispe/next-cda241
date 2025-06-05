@@ -34,6 +34,10 @@ jobs:
       env: prod
       branch: main
       url: http://ec2-51-44-233-51.eu-west-3.compute.amazonaws.com
+    secrets:
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USER: ${{ secrets.SSH_USER }}
+      SSH_KEY: ${{ secrets.SSH_KEY }}
 
 
   deploy-test:
@@ -43,5 +47,8 @@ jobs:
       env: test
       branch: develop
       url: http://ec2-51-44-233-51.eu-west-3.compute.amazonaws.com:8080
-
+    secrets:
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USER: ${{ secrets.SSH_USER }}
+      SSH_KEY: ${{ secrets.SSH_KEY }}
 
